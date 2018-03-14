@@ -6,13 +6,13 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
-	l "github.com/jesseokeya/go-httplogger/logger"
+	l "github.com/jesseokeya/go-httplogger"
 )
 
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler)
-	http.ListenAndServe(port("3000"), l.HttpLogger(r))
+	http.ListenAndServe(port("3000"), l.HTTPLogger(r))
 }
 
 // HomeHandler function

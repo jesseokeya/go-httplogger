@@ -1,4 +1,4 @@
-package logger
+package httpLogger
 
 import (
 	"net/http"
@@ -25,8 +25,7 @@ func init() {
 	logging.SetBackend(backend1Leveled, messagesFormatter)
 }
 
-// Logger handler interface
-func Logger(h http.Handler) http.Handler {
+func httpLogger(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		middleware(r)
 		h.ServeHTTP(w, r)
