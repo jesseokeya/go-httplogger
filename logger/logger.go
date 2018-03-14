@@ -1,11 +1,9 @@
-package main
+package logger
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 
-	"github.com/gorilla/mux"
 	"github.com/op/go-logging"
 )
 
@@ -25,12 +23,6 @@ func init() {
 	backend1Leveled.SetLevel(logging.ERROR, "")
 
 	logging.SetBackend(backend1Leveled, messagesFormatter)
-}
-
-func main() {
-	r := mux.NewRouter()
-	r.HandleFunc("/", HomeHandler)
-	log.Fatal(http.ListenAndServe(":8000", Logger(r)))
 }
 
 // Logger handler interface
@@ -56,9 +48,4 @@ func middleware(r *http.Request) {
 	default:
 		log.Errorf("%s %s %s ", r.Proto, r.Method, r.URL)
 	}
-}
-
-// HomeHandler handler
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to my test server")
 }
