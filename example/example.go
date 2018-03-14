@@ -12,7 +12,7 @@ import (
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler)
-	http.ListenAndServe(port("3000"), l.HTTPLogger(r))
+	http.ListenAndServe(port("3000"), l.Golog(r))
 }
 
 // HomeHandler function
