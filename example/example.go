@@ -6,22 +6,24 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
+	l "github.com/jesseokeya/go-httplogger/logger"
 )
 
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler)
-	http.ListenAndServe(port("3000"), Logger(r))
+	http.ListenAndServe(port("3000"), l.HttpLogger(r))
 }
 
+// HomeHandler function
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome To A Test Server")
 }
 
 func port(p string) string {
 	port := os.Getenv("PORT")
-	if len(port) > 0 {
-		p = port
+	if len(port) == 0 {
+		port = p
 	}
 	return ":" + port
 }
