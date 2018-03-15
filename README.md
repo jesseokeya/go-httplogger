@@ -35,3 +35,5 @@ func port(p string) string {
 	return ":" + port
 }
 ```
+## Terminal Snippet
+![alt text](https://raw.githubusercontent.com/jesseokeya/go-httplogger/master/example/src/resources/images/terminal.png)
