@@ -5,19 +5,15 @@ import (
 	"net/http"
 	"os"
 
+	rice "github.com/GeertJohan/go.rice"
 	"github.com/gorilla/mux"
 	l "github.com/jesseokeya/go-httplogger"
 )
 
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/", HomeHandler)
-	http.ListenAndServe(port("3000"), l.Golog(r))
-}
-
-// HomeHandler function
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome To A Test Server")
+	r.PathPrefix("/").Handler(http.FileServer(rice.MustFindBox("src").HTTPBox()))
+	http.ListenAndServe(port("8000"), l.Golog(r))
 }
 
 func port(p string) string {
@@ -25,5 +21,6 @@ func port(p string) string {
 	if len(port) == 0 {
 		port = p
 	}
+	fmt.Printf("server running on port *%s \n", port)
 	return ":" + port
 }
