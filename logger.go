@@ -35,15 +35,15 @@ func Golog(h http.Handler) http.Handler {
 
 func middleware(r *http.Request) {
 	switch r.Method {
-	case "GET":
+	case http.MethodGet:
 		log.Debugf("%s %s %s ", r.Proto, r.Method, r.URL)
-	case "PUT":
+	case http.MethodPut:
 		log.Criticalf("%s %s %s ", r.Proto, r.Method, r.URL)
-	case "HEAD":
+	case http.MethodHead:
 		log.Noticef("%s %s %s ", r.Proto, r.Method, r.URL)
-	case "POST":
+	case http.MethodPost:
 		log.Debugf("%s %s %s ", r.Proto, r.Method, r.URL)
-	case "DELETE":
+	case http.MethodDelete:
 		log.Warningf("%s %s %s ", r.Proto, r.Method, r.URL)
 	default:
 		log.Errorf("%s %s %s ", r.Proto, r.Method, r.URL)
